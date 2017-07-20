@@ -1,9 +1,44 @@
 <template>
     <div class="list">
-        <h4>文章分类：{{active_list.name}}</h4>
+        <h4>
+            文章分类：{{active_list.name}}
+            <div class="fr">
+                <label class="check-icon" for="checkedAll" :class="checkAll && 'checked'" v-if="isManage"></label>
+                <span class="label-text" v-if="isManage">全选</span>
+                <input
+                    v-model="checkAll"
+                    type="checkbox"
+                    id="checkedAll"
+                    class="hidden"
+                    @click="checkAllFun"
+                    v-if="isManage"/>
+                <span
+                    class="label-text cur"
+                    :disabled="noCheck"
+                    :class="noCheck && 'no-check'"
+                    @click="remove"
+                    v-if="isManage">删除选中</span>
+                <button class="manage" @click="isManage = !isManage">管理</button>
+            </div>
+        </h4>
         <ul>
-            <li v-for="(el,index) in active_list.list" :key="index">
-                <h2><a :href="el.url" target="_blank">{{el.name}}</a></h2>
+            <li v-for="(el,index) in active_list.list" :key="el.id">
+                <h2>
+                    <label
+                        :for="'v-'+el.id"
+                        :class="{'checked': checkbox.indexOf(el.id)!=-1}"
+                        class="check-icon"
+                        v-if="isManage"></label>
+                    <input
+                        :id="'v-'+el.id"
+                        v-model="checkbox"
+                        :value="el.id"
+                        class="hidden"
+                        type="checkbox"
+                        @click="checkFun"
+                        v-if="isManage"/>
+                    <a :href="el.url" target="_blank">{{el.name}}</a>
+                </h2>
                 <p>{{el.des}}</p>
             </li>
         </ul>
@@ -14,7 +49,50 @@
     export default {
         name:'list',
         computed:{
-            ...mapGetters(['active_list'])
+            ...mapGetters(['active_list']),
+            noCheck(){
+                return this.checkbox.length == 0
+            }
+        },
+        methods:{
+            checkAllFun() {
+                this.checkbox = []
+                if(this.checkAll) {
+                    this.active_list.list.forEach((el) => {
+                        this.checkbox.push(el.id)
+                    })
+                }
+            },
+            checkFun() {
+                this.checkAll = false
+                if(this.checkbox.length == 0 || this.checkbox.length == this.active_list.list.length){
+                    this.checkAll = true
+                }
+            },
+            remove() {
+                this.checkbox.forEach((el) => {
+                    this.active_list.list.forEach((val,index) => {
+                        if(val.id == el) {
+                            this.active_list.list.splice(index,1)
+                        }
+                    })
+                })
+                //这个时候 this.active_list.list 里面的值就变化了 那么就会触发 $watch监听这个数据的函数
+            }
+        },
+        mounted() {
+            //$watch 监听函数 用来监听数据值的变化，在数据更改的时候执行
+            this.$watch('active_list.list',function(){
+                this.checkAll = false
+                this.checkAllFun()
+            })
+        },
+        data() {
+            return {
+                checkAll:false,
+                checkbox:[],
+                isManage:false
+            }
         }
     }
 </script>
@@ -43,6 +121,40 @@
                 height: 20px;
                 background: #3498db;
             }
+            .manage {
+                margin-left: 10px;
+                background: #3498db;
+                border:none;
+                font-size: 14px;
+                color:#f1f1f1;
+                padding: 4px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                outline: none
+            }
+        }
+        .label-text {
+            font-size: 14px;
+            display: inline-block;
+            text-indent: 0;
+            color: #3498db
+        }
+        .no-check {
+            color: #ccc
+        }
+        .check-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-top: -2px;
+            background-image: url(../assets/images/blue.png);
+            background-repeat:no-repeat;
+            background-position: left center;
+            cursor: pointer;
+            &.checked {
+                background-position: -22px center
+            }
         }
         ul {
             li {
@@ -54,6 +166,7 @@
                     line-height: 30px;
                     min-height: 30px;
                     margin-bottom: 4px;
+                    transition: all ease-in-out .2s;
                     a:hover {
                         text-decoration: underline;
                     }

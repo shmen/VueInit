@@ -32,7 +32,6 @@ export default {
                     uid:"shmen"
                 }
             })
-            window.sessionStorage.uid = this.user
         },
         reset(){
             this.user = ""
