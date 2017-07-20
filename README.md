@@ -4,7 +4,7 @@
 ## 安装依赖
 
 ```
-#安装淘宝镜像 npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 安装淘宝镜像 npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 ```
 
