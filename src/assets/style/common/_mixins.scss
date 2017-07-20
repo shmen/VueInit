@@ -1,0 +1,59 @@
+
+/**
+ * 清除浮动
+ */
+@mixin clearfix {
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+	}
+}
+
+/**
+ * 垂直水平居中，父元素宽高不定，子元素宽高不定
+ */
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/**
+ * 垂直居中，父元素高不定，子元素高不定
+ */
+@mixin vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/**
+ * 水平居中，父元素宽不定，子元素宽不定
+ */
+@mixin horizontal-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*显示两行*/
+@mixin clamp2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+//显示一行
+@mixin clamp1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
