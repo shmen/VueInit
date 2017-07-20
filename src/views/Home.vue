@@ -53,15 +53,15 @@ export default {
     created(){ // 在组件被创建时候将会执行此函数  相当于进入页面的自执行
         //从vue的路由中获得url中的uid
         this.user = this.$route.query.uid
-        getList({},(res) => {
+        getList().then((data) => {
             //这个就是刚才从mapActions上面拓展过来的方法 用来触发updateData函数
             this.updateData({
                 path:"list",
-                data:res
+                data:data
             })
             this.updateData({
                 path:"active_list",
-                data:res[0]
+                data:data[0]
             })
         })
     },

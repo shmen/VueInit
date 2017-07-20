@@ -1,45 +1,30 @@
-import Vue from 'vue'
-import Resource from 'vue-resource'
-Vue.use(Resource)
-Vue.http.options.xhr = { withCredentials: true }
-Vue.http.options.emulateJSON = true
-Vue.http.options._timeout = 10000
-Vue.http.interceptors.push((request, next) => {
-    let timeout;
-    // 這裡改用 _timeout
-    if (request._timeout) {
-        timeout = setTimeout(() => {
-            //自定义响应体 status:408,statustext:"请求超时"，并返回给下下边的next
-            next(request.respondWith(request.body, {
-                status: 408,
-                statusText: '请求超时'
-            }));
-        }, request._timeout);
-    }
-    next((response) => {
-        clearTimeout(timeout)
-        return response;
-    })
-})
-function Res(url,body,cb) {
-    if (url) {
-        Vue.http.get(url, body).then((response) => {
-            if (typeof (eval(cb)) == 'function') {
-                let body = response.bodyText;
-                if(typeof body !== 'object'){
-                    body = JSON.parse(body);
-                }
-                cb(body)
-            } else {
-                console.error('cb is not a function');
-            }
-        }, (response) => {
+import commonResource from './method' //引入封装好的resources请求方法
+import config from './config' //引入接口地址配置文件
 
-        });
-    } else {
-    }
-}
-export const getList = function (body, cb) {
-    const url = './src/mock/list.json'
-    Res(url,body,cb)
+/**
+ * [commonResource method里面封装好的方法]
+ * @param  {[type]} params [对象参数]
+ * params {
+     url,           地址            必传
+     method,        方法           不传默认post
+     params,        参数           没参数就不传
+     json,          是否是json     不传默认false
+   }
+ */
+
+//无参数写法
+const getList = (params) => commonResource({
+    url: config.getList,
+    method:'GET'
+})
+
+/*  有参数写法
+    const getList = (params) => commonResource({
+        url: config.getList,
+        params:params,  参数详见上面的注释
+        method:'GET'
+    })
+*/
+export {
+    getList
 }
