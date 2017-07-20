@@ -1,22 +1,24 @@
-# 聚兔外卖微信端
+# 简单个人主页
 
 > A Vue.js project
-## 搭建
+## 安装依赖
 
 ```
-npm install -g vue-cli
-vue init webpack-simple dispatch-manage
+#安装淘宝镜像 npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm install
 ```
 
 ## 运行
 
 ``` bash
-# install dependencies
-npm install
+npm run dev
 
 # serve with hot reload at localhost:9060
 npm run dev
+```
 
-# build for production with minification
+## 打包
+
+``` bash
 npm run build
 ```
