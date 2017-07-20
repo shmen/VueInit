@@ -16,7 +16,7 @@ cnpm install
 ``` bash
 npm run dev
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080   暂未做浏览器兼容处理  请使用chrome浏览
 ```
 
 ## 打包
