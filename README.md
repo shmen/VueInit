@@ -1,5 +1,5 @@
 # vue-pro
 
-# 安装依赖
+## 安装依赖
 
 npm install
