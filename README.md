@@ -1,5 +1,7 @@
 # vue-pro
 
 ## 安装依赖
-``qqq
+## 运行
+
+``` bash
 npm install
