@@ -1,29 +1,39 @@
 <template>
-    <div class="home-top">
+    <div class="top">
         <div class="logo fl">
             <img src="../assets/images/logo.png" />
-            {{name}}的博客
+            Epoint
         </div>
-
         <div class="tool fr">
-            <a href="javascript:">设置</a>
-            <a href="javascript:" @click="signOut">退出登录</a>
+            <div v-if="type">
+                <a href="javascript:">设置</a>
+                <a href="javascript:" @click="signOut">退出登录</a>
+            </div>
+            <div v-else>
+                <a href="javascript:">注册</a>
+                <a href="javascript:">登录</a>
+            </div>
         </div>
     </div>
 </template>
 <script>
     export default {
-        name:'home-top',
+        name:'top',
+        props:{
+            type:{
+                default:true,
+                type:Boolean
+            }
+        },
         methods:{
             signOut(){
                 this.$router.push({
                     name:'login'
                 })
-                delete sessionStorage.uid
             }
         },
         created(){
-            this.name = sessionStorage.uid
+            this.name = this.$route.query.uid
         },
         data(){
             return {
@@ -33,7 +43,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
-    .home-top {
+    .top {
         height: 50px;
         background: #3e4147;
         overflow: hidden;
@@ -41,12 +51,12 @@
             height: 50px;
             line-height: 50px;
             margin-left: 40px;
-            font-size: 20px;
+            font-size: 24px;
             color: #fafafa;
             img {
                 vertical-align: middle;
-                height: 30px;
-                margin-top: -2px;
+                height: 40px;
+                margin-top: -6px;
                 margin-right: 10px;
             }
         }

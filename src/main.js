@@ -6,7 +6,6 @@ import routes from './config/router.js'; //这是路由的配置文件
 
 // 把路由 注册到vue上
 Vue.use(VueRouter);
-
 // 实例化路由
 const router = new VueRouter({
   mode: 'hash',

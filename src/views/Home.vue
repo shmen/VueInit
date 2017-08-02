@@ -4,7 +4,7 @@
         <animate-layer></animate-layer>
         <div class="home-content">
             <div class="avatar">
-                <img src="../assets/images/shmen'.jpg" alt="shmen" />
+                <img src="../assets/images/shmen.jpg" alt="shmen" />
             </div>
             <div class="home-name">
                 {{user}} 的个人主页

@@ -30,6 +30,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss">
+@import '../assets/style/common/_theme.scss';
     .sidebar {
         padding: 14px;
         background: #fff;
@@ -52,7 +53,7 @@
                 left: 0;
                 width: 5px;
                 height: 20px;
-                background: #3498db;
+                background: $theme;
             }
         }
         li {

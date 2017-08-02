@@ -97,6 +97,7 @@
     }
 </script>
 <style lang="scss" rel="stylesheet/scss" scoped>
+    @import '../assets/style/common/_theme.scss';
     .list {
         width: 980px;
         background: #fff;
@@ -119,11 +120,11 @@
                 left: 0;
                 width: 5px;
                 height: 20px;
-                background: #3498db;
+                background: $theme;
             }
             .manage {
                 margin-left: 10px;
-                background: #3498db;
+                background: $theme;
                 border:none;
                 font-size: 14px;
                 color:#f1f1f1;
@@ -137,7 +138,7 @@
             font-size: 14px;
             display: inline-block;
             text-indent: 0;
-            color: #3498db
+            color: $theme
         }
         .no-check {
             color: #ccc
@@ -148,12 +149,14 @@
             height: 20px;
             vertical-align: middle;
             margin-top: -2px;
-            background-image: url(../assets/images/blue.png);
-            background-repeat:no-repeat;
-            background-position: left center;
+            background-color: #ccc;
+            border-radius: 4px;
             cursor: pointer;
             &.checked {
-                background-position: -22px center
+                background-image: url(../assets/images/blue.png);
+                background-position: 4px 6px;
+                background-repeat: no-repeat;
+                background-color: $theme
             }
         }
         ul {
